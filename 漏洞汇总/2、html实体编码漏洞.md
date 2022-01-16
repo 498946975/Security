@@ -23,8 +23,8 @@ _REQUEST的数据是<?php echo $_REQUEST ?>
 ```
 
 ### 4、在html上输入js代码，并执行
-![image](https://github.com/498946975/Secutiry/blob/master/images/image-20211219153958813.png)
-![image](https://github.com/498946975/Secutiry/blob/master/images/image-20211219154033537.png)
+![image](https://github.com/498946975/Security/blob/master/images/image-20211219153958813.png)
+![image](https://github.com/498946975/Security/blob/master/images/image-20211219154033537.png)
 
 5、将用户输入的内容，必须进行html实体编码
 
@@ -39,4 +39,4 @@ _REQUEST的数据是<?php echo $_REQUEST ?>
 ```
 
 6、在进行html实体编码之后，再输入js代码，就不会在前端执行了
-![image](https://github.com/498946975/Secutiry/blob/master/images/image-20211219154325121.png)
+![image](https://github.com/498946975/Security/blob/master/images/image-20211219154325121.png)
