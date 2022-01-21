@@ -45,3 +45,19 @@ try {
 ![image](https://github.com/498946975/Security/blob/master/images/sql_5.png)
 ![image](https://github.com/498946975/Security/blob/master/images/sql_4.png)
 
+### 5、测试是不是数字型的sql注入的三个步骤
+#### 5.1 加单引号，语句报错，证明不是string类型的
+```sql
+select * from user where id=1'
+```
+#### 5.2 加 "and 1=1"，语句执行正常
+```sql
+select * from user where id=1 and 1=1
+```
+```shell script
+superadmin 2021-12-11 14:51:53
+```
+#### 5.3 没有输出的结果，和上面的输出结果不一致，但是也能正常执行
+```sql
+select * from user where id=1 and 1=2
+```
