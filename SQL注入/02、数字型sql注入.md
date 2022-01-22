@@ -44,7 +44,8 @@ try {
 ### 4、如果这时输入string的"1"，会自动转换成为int类型1，这个功能叫"隐示转换"
 ![image](https://github.com/498946975/Security/blob/master/images/sql_5.png)
 ![image](https://github.com/498946975/Security/blob/master/images/sql_4.png)
-
+#### 4.1 如果是int开头的字符串，则会隐式转换第一个int，后面的都忽略
+![image](https://github.com/498946975/Security/blob/master/images/sql_26.png)
 ### 5、测试是不是数字型的sql注入的三个步骤
 #### 5.1 加单引号，语句报错，证明不是string类型的
 ```sql
