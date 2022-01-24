@@ -9,16 +9,11 @@ https://www.oracle.com/java/technologies/downloads/#java8-mac
 
 ## 二、在mac上安装BurpSuite
 
- [BrupsuiteV1.7.31.zip](1月8日/BrupsuiteV1.7.31.zip) 
+[BrupsuiteV1.7.31.zip](files/burpsuite_pro_v1.7.31.jar) 
 
 ### 1、解压缩该zip
 ![image](https://github.com/498946975/Security/blob/master/images/image-20220108192344962.png)
-![image-20220108192344962](/Users/oliver/Library/Application Support/typora-user-images/image-20220108192344962.png)
 
-```shell script
-Oswald:BrupsuiteV1.7.31 root# pwd
-/Users/oliver/Downloads/【马哥教育】网络安全C1课件/1月8日/BrupsuiteV1.7.31
-```
 
 ### 2、运行BurpKeygen.jar，激活BurpSuite
 
