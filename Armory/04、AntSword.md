@@ -86,4 +86,4 @@ systemctl restart nginx
 systemctl restart php-fpm
 ```
 ### 3、使用蚁剑连接服务器
-![image](https://github.com/498946975/Security/blob/master/images/image-20220105094154247)
+![image](https://github.com/498946975/Security/blob/master/images/image-20220105094154247.png)
