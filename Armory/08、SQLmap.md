@@ -4,7 +4,7 @@ MySQL, Oracle, PostgreSQL, Microsoft SQL Server, Microsoft Access, IBM DB2, SQLi
 ```
 ### 2、官网地址
 ```yaml
-官方网站: http://sqlmap.org/，
+官方网站: http://sqlmap.org/
 下载地址: https://github.com/sqlmapproject/sqlmap/zipball/master
 ```
 ### 3、Mac 或者 Linux下只用git直接下载安装
