@@ -1,5 +1,6 @@
 ## CSRF
 ### 1、介绍
+![image](https://github.com/498946975/Security/blob/master/images/csrf_08.png)
 ```yaml
 1、跨站请求伪造(也称为 CSRF)是一种 Web 安全漏洞
 2、允许攻击者诱导用户执行他们不打算执行的操作
