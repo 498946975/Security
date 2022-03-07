@@ -19,3 +19,5 @@ C:\phpstudy_pro\Extensions\php\php5.4.45nts
 #### 设置为low模式
 ![image](https://github.com/498946975/Security/blob/master/images/waf_10.png)
 ![image](https://github.com/498946975/Security/blob/master/images/waf_11.png)
+#### 防护日志
+![image](https://github.com/498946975/Security/blob/master/images/waf_12.png)
